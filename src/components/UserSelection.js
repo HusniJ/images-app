@@ -3,12 +3,12 @@ import axios from 'axios';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Spinner } from 'reactstrap';
 import { toast } from 'react-toastify';
 
-const UserSelection = () => {
+const UserSelection = (props) => {
     const [users, setUsers] = useState([]);
-    const [userId, setUserId] = useState(null);
     const [userName, setUserName] = useState('Select Users');
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const { setUserId, userId } = props;
 
     const toggleDropDown = () => setDropdownOpen(prev => !prev);
 
@@ -33,6 +33,8 @@ const UserSelection = () => {
         setUserName(event.target.name);
         setUserId(event.target.value);
     }
+
+    if (userId !== null) return ''
 
     return (
         <div>
