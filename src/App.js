@@ -25,6 +25,7 @@ const App = () => {
       <header className="App-header">
         <ToastContainer />
         <img src={logo} className="App-logo" alt="logo" />
+        <h1>Image Book</h1>
         <UserSelection setUserId={setUserId} userId={userId} />
         <SelectImages userId={userId} setUserImages={setUserImages} userImages={userImages} clearUserId={clearUserId} />
         <ShowImages userId={userId} userImages={userImages} clearImages={clearImages} clearUserId={clearUserId} />
