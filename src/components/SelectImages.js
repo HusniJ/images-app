@@ -18,7 +18,6 @@ const SelectImages = ({ userId, setUserImages, userImages, clearUserId }) => {
         let images = [];
         axios.get(`user/images/find/${userId}`)
             .then((response) => {
-                setIsLoading(false);
                 if (response?.data?.imagePaths?.length > 0) {
                     response.data.imagePaths.map(item => {
                         images.push({
@@ -32,9 +31,10 @@ const SelectImages = ({ userId, setUserImages, userImages, clearUserId }) => {
                 setUserImages(images);
                 setIsImageExists(images.length > 0);
             })
-            .catch(error => {
-                setIsLoading(false);
+            .catch((error) => {
                 toast.error(error.message)
+            }).finally(() => {
+                setIsLoading(false);
             });
     }
 
@@ -50,7 +50,6 @@ const SelectImages = ({ userId, setUserImages, userImages, clearUserId }) => {
         setIsLoading(true);
         axios.get("https://dev-pb-apps.s3-eu-west-1.amazonaws.com/collection/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ.json")
             .then((response) => {
-                setIsLoading(false);
                 response.data?.entries.map(entry => {
                     images.push({
                         src: entry.picture,
@@ -62,8 +61,9 @@ const SelectImages = ({ userId, setUserImages, userImages, clearUserId }) => {
                 setDefaultImages(images);
             })
             .catch((error) => {
-                setIsLoading(false);
                 toast.error(error.message)
+            }).finally(() => {
+                setIsLoading(false);
             });
     }
 

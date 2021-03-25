@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-axios.defaults.baseURL = 'https://images-gs-api.herokuapp.com';
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 ReactDOM.render(
