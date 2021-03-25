@@ -47,8 +47,7 @@ const SelectedImage = ({
   top,
   left,
   selected,
-  setSelectedIndex,
-  selectedIndexes
+  toggleImageSelection
 }) => {
   const [isSelected, setIsSelected] = useState(selected);
   //calculate x,y scale
@@ -65,13 +64,7 @@ const SelectedImage = ({
   const handleOnClick = e => {
     setIsSelected(!isSelected);
     console.log('selected', index);
-    if(!isSelected){
-        setSelectedIndex(prev => [...prev, ...[index]]);
-    } else {
-        let removedImageIndex = selectedIndexes.indexOf(index);
-        selectedIndexes.splice(removedImageIndex, 1);
-        setSelectedIndex(selectedIndexes);
-    }
+    toggleImageSelection(!isSelected, index);
   };
 
   useEffect(() => {

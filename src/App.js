@@ -11,14 +11,23 @@ const App = () => {
   const [userId, setUserId] = useState(null);
   const [userImages, setUserImages] = useState([]);
 
+  const clearImages = () => {
+    setUserImages([]);
+  }
+
+  const clearUserId = () => {
+    setUserImages([]);
+    setUserId(null);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <ToastContainer />
         <img src={logo} className="App-logo" alt="logo" />
         <UserSelection setUserId={setUserId} userId={userId} />
-        <SelectImages userId={userId} setUserImages={setUserImages} userImages={userImages}/>
-        <ShowImages userId={userId} userImages={userImages} />
+        <SelectImages userId={userId} setUserImages={setUserImages} userImages={userImages} clearUserId={clearUserId} />
+        <ShowImages userId={userId} userImages={userImages} clearImages={clearImages} clearUserId={clearUserId} />
       </header>
     </div>
   );
