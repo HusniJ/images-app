@@ -2,6 +2,16 @@
 
 This project was created with react
 
+## Dependencies
+
+```
+React
+Reactstrap
+Bootstrap
+Axios
+React Photo Gallery
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
