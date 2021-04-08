@@ -12,65 +12,71 @@ const SelectImages = ({ userId, setUserImages, userImages, clearUserId }) => {
     const [selectedIndex, setSelectedIndex] = useState([]);
     const [isImageExists, setIsImageExists] = useState(false);
 
-    // fetch User Images
-    const fetchUserImages = () => {
-        setIsLoading(true);
-        let images = [];
-        axios.get(`user/images/find/${userId}`)
-            .then((response) => {
-                if (response?.data?.imagePaths?.length > 0) {
-                    response.data.imagePaths.map(item => {
-                        images.push({
-                            src: item,
-                            width: 1,
-                            height: 1
-                        });
-                        return;
-                    })
-                }
-                setUserImages(images);
-                setIsImageExists(images.length > 0);
-            })
-            .catch((error) => {
-                toast.error(error.message)
-            }).finally(() => {
-                setIsLoading(false);
-            });
-    }
+
 
     useEffect(() => {
         if (userId === null) return;
+
+        // fetch User Images
+        const fetchUserImages = () => {
+            setIsLoading(true);
+            let images = [];
+            axios.get(`user/images/find/${userId}`)
+                .then((response) => {
+                    if (response?.data?.imagePaths?.length > 0) {
+                        response.data.imagePaths.map(item => {
+                            images.push({
+                                src: item,
+                                width: 1,
+                                height: 1
+                            });
+                            return item;
+                        })
+                    }
+                    setUserImages(images);
+                    setIsImageExists(images.length > 0);
+                })
+                .catch((error) => {
+                    toast.error(error.message)
+                }).finally(() => {
+                    setIsLoading(false);
+                });
+        }
+
         fetchUserImages();
     }, [userId])
 
-    // fetch Default Images to set for the User
-    const fetchDefaultImages = () => {
-        if (userId === null) return;
-        const images = [];
-        setIsLoading(true);
-        axios.get("https://dev-pb-apps.s3-eu-west-1.amazonaws.com/collection/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ.json")
-            .then((response) => {
-                response.data?.entries.map(entry => {
-                    images.push({
-                        src: entry.picture,
-                        width: 1,
-                        height: 1
-                    });
-                    return;
-                })
-                setDefaultImages(images);
-            })
-            .catch((error) => {
-                toast.error(error.message)
-            }).finally(() => {
-                setIsLoading(false);
-            });
-    }
+
 
     useEffect(() => {
         if (userImages.length !== 0) {
             return;
         }
+
+        // fetch Default Images to set for the User
+        const fetchDefaultImages = () => {
+            if (userId === null) return;
+            const images = [];
+            setIsLoading(true);
+            axios.get("https://dev-pb-apps.s3-eu-west-1.amazonaws.com/collection/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ.json")
+                .then((response) => {
+                    response.data?.entries.map(entry => {
+                        images.push({
+                            src: entry.picture,
+                            width: 1,
+                            height: 1
+                        });
+                        return entry;
+                    })
+                    setDefaultImages(images);
+                })
+                .catch((error) => {
+                    toast.error(error.message)
+                }).finally(() => {
+                    setIsLoading(false);
+                });
+        }
+
         fetchDefaultImages();
     }, [userImages])
 
@@ -118,7 +124,7 @@ const SelectImages = ({ userId, setUserImages, userImages, clearUserId }) => {
                 width: 1,
                 height: 1
             });
-            return;
+            return i;
         })
 
         setIsLoading(true);

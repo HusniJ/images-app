@@ -84,8 +84,8 @@ const UserSelection = ({ setUserId, userId }) => {
                             </DropdownToggle>
                             <DropdownMenu>
                                 {
-                                    users.map(user => {
-                                        return (<DropdownItem value={user.userId} name={user.name} onClick={selectUser}>{user.name}</DropdownItem>);
+                                    users.map((user, index) => {
+                                        return (<DropdownItem value={user.userId} name={user.name} key={index} onClick={selectUser}>{user.name}</DropdownItem>);
                                     })
                                 }
                             </DropdownMenu>
